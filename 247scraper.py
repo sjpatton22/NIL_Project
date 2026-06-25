@@ -65,6 +65,9 @@ print("Final cards:", len(cards))
 
 names = []
 position_list = []
+heights = []
+weights = []
+
 high_schools = []
 cities = []
 states = []
@@ -91,6 +94,19 @@ for card in cards:
         ).text.strip()
     except:
         pos = ""
+
+    try:
+        metrics = card.find_element(
+            By.XPATH,
+            ".//div[contains(@class,'metrics')]"
+        ).text.strip()
+
+        height = metrics.split("/")[0].strip()
+        weight = metrics.split("/")[1].strip()
+
+    except:
+        height = ""
+        weight = ""
 
     try:
         loc = card.find_element(
@@ -149,6 +165,9 @@ for card in cards:
     if name != "":
         names.append(name)
         position_list.append(pos)
+        heights.append(height)
+        weights.append(weight)
+
         high_schools.append(high_school)
         cities.append(city)
         states.append(state)
@@ -161,6 +180,8 @@ for card in cards:
 df = pd.DataFrame({
     "Player": names,
     "Position": position_list,
+    "Height": heights,
+    "Weight": weights,
     "NationalRank": national_ranks,
     "PositionRank": position_ranks,
     "StateRank": state_ranks,
