@@ -67,6 +67,8 @@ names = []
 position_list = []
 heights = []
 weights = []
+stars = []
+ratings = []
 
 high_schools = []
 cities = []
@@ -107,6 +109,26 @@ for card in cards:
     except:
         height = ""
         weight = ""
+        
+    try:
+        star = card.find_elements(
+            By.XPATH,
+            ".//div[contains(@class,'star-and-score')]//span[contains(@class,'icon-starsolid') and contains(@class,'yellow')]"
+        )
+
+        stars_count = len(star)
+
+    except:
+        stars_count = ""
+
+    try:
+        rating = card.find_element(
+            By.XPATH,
+            ".//div[contains(@class,'star-and-score')]//span[contains(@class,'score')]"
+        ).text.strip()
+
+    except:
+        rating = ""
 
     try:
         loc = card.find_element(
@@ -167,6 +189,8 @@ for card in cards:
         position_list.append(pos)
         heights.append(height)
         weights.append(weight)
+        stars.append(stars_count)
+        ratings.append(rating)
 
         high_schools.append(high_school)
         cities.append(city)
@@ -182,6 +206,8 @@ df = pd.DataFrame({
     "Position": position_list,
     "Height": heights,
     "Weight": weights,
+    "Stars": stars,
+    "Rating": ratings,
     "NationalRank": national_ranks,
     "PositionRank": position_ranks,
     "StateRank": state_ranks,
