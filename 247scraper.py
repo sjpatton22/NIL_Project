@@ -12,7 +12,7 @@ options.page_load_strategy = "eager"
 driver = webdriver.Chrome(options=options)
 driver.set_page_load_timeout(15)
 
-url = "https://247sports.com/season/2024-football/compositerecruitrankings/"
+url = "https://247sports.com/season/1999-football/compositerecruitrankings/"
 
 print("Opening page...")
 
@@ -232,7 +232,7 @@ print(df.head())
 print("\nTotal players:", len(df))
 
 # Save to CSV
-df.to_csv("/Users/sampatton/Downloads/2024.csv", index=False)
+df.to_csv("/Users/sampatton/Downloads/1999.csv", index=False)
 
 print("Saved")
 
