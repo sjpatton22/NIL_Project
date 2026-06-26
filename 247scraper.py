@@ -12,7 +12,7 @@ options.page_load_strategy = "eager"
 driver = webdriver.Chrome(options=options)
 driver.set_page_load_timeout(15)
 
-url = "https://247sports.com/season/2025-football/compositerecruitrankings/"
+url = "https://247sports.com/season/2024-football/compositerecruitrankings/"
 
 print("Opening page...")
 
@@ -43,7 +43,7 @@ while True:
             load_more
         )
 
-        time.sleep(2)
+        time.sleep(3)
 
         cards_now = driver.find_elements(
             By.XPATH,
@@ -76,6 +76,7 @@ states = []
 committed_to = []
 
 national_ranks = []
+ranking_247 = []
 position_ranks = []
 state_ranks = []
 
@@ -109,7 +110,7 @@ for card in cards:
     except:
         height = ""
         weight = ""
-        
+
     try:
         star = card.find_elements(
             By.XPATH,
@@ -169,6 +170,14 @@ for card in cards:
         national_rank = ""
 
     try:
+        rank_247 = card.find_element(
+            By.XPATH,
+            ".//div[contains(@class,'other')]"
+        ).text.strip()
+    except:
+        rank_247 = ""
+
+    try:
         position_rank = card.find_element(
             By.XPATH,
             ".//a[contains(@class,'posrank')]"
@@ -198,6 +207,7 @@ for card in cards:
         committed_to.append(committed)
 
         national_ranks.append(national_rank)
+        ranking_247.append(rank_247)
         position_ranks.append(position_rank)
         state_ranks.append(state_rank)
 
@@ -208,7 +218,8 @@ df = pd.DataFrame({
     "Weight": weights,
     "Stars": stars,
     "Rating": ratings,
-    "NationalRank": national_ranks,
+    "CompositeRank": national_ranks,
+    "247Rank": ranking_247,
     "PositionRank": position_ranks,
     "StateRank": state_ranks,
     "HighSchool": high_schools,
@@ -219,6 +230,11 @@ df = pd.DataFrame({
 
 print(df.head())
 print("\nTotal players:", len(df))
+
+# Save to CSV
+df.to_csv("/Users/sampatton/Downloads/2024.csv", index=False)
+
+print("Saved")
 
 driver.quit()
 
