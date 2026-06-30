@@ -4,10 +4,10 @@ from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 
 
-players_path = "/Users/sampatton/Downloads/NIL_Project/2024.csv"
+players_path = "/Users/sampatton/Downloads/NIL_Project/2000.csv"
 cities_path = "/Users/sampatton/Downloads/NIL_Project/uscities.csv"
 schools_path = "/Users/sampatton/Downloads/NIL_Project/ncaa_d1_football_schools.csv"
-output_path = "/Users/sampatton/Downloads/NIL_Project/2024_coordinates_distance.csv"
+output_path = "/Users/sampatton/Downloads/NIL_Project/2000_coord.csv"
 
 school_col = "CommittedTo"
 
@@ -154,13 +154,8 @@ for i, row in missing_places.iterrows():
 # -------------------------
 school_name_map = {
     "Miami (FL)": "Miami",
-    "Miami": "Miami",
     "Hawaii": "Hawaiʻi",
-    "Ole Miss": "Ole Miss",
-    "Northern Illinois": "Northern Illinois",
-    "Colorado State": "Colorado State",
-    "Alabama": "Alabama",
-    "Florida": "Florida"
+    "Louisiana-Monroe": "ULM"
 }
 
 players["School_Matched_Name"] = players[school_col].replace(school_name_map)
